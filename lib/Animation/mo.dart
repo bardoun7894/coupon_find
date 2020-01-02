@@ -15,7 +15,7 @@ class _SplashScreen extends State<SplashScreen> {
 
 	@override
 	void initState() {
-		// TODO: implement initState
+	 
 		super.initState();
 		Timer(
 				Duration(seconds: 3),
@@ -30,7 +30,7 @@ class _SplashScreen extends State<SplashScreen> {
 
 	@override
 	Widget build(BuildContext context) {
-		// TODO: implement build
+	 
 		return Scaffold(
 				body: Stack(
 					fit: StackFit.expand,

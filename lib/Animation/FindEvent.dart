@@ -2,39 +2,47 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
 class FindEvent extends StatelessWidget {
+ 
 
   static Color appColor = Color.fromRGBO(68, 138, 255,30);
-
-  Widget _buildFolderView() {
-    return Expanded(
-      flex: 6,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                "كوبونات",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
-              Text(" الكل",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueAccent))
-            ],
-          ),
-          Container(
-              height: 140,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                children: <Widget>[
-                  Container(
+  Widget containerBox(String sname ){
+    return  Container(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    margin: EdgeInsets.only(top: 16, bottom: 16, right: 16),
+                    height: 140,
+                    width: 120,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: Colors.grey)),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        CircleAvatar(
+                          radius: 27,
+                          backgroundColor: Colors.blue[100],
+                        ),
+                        Text(
+                          sname ,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16),
+                        ),
+                        Text(
+                          "12/31/2019",
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14),
+                        )
+                      ],
+                    ),
+                  );
+  }
+Widget selectedCon(){
+  return Container(
                     padding: EdgeInsets.symmetric(vertical: 8),
                     margin: EdgeInsets.only(top: 16, bottom: 16, right: 16),
                     height: 140,
@@ -73,109 +81,41 @@ class FindEvent extends StatelessWidget {
                         )
                       ],
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    margin: EdgeInsets.only(top: 16, bottom: 16, right: 16),
-                    height: 140,
-                    width: 120,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: Colors.grey)),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        CircleAvatar(
-                          radius: 27,
-                          backgroundColor: Colors.blue[100],
-                        ),
-                        Text(
-                          "Drible",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
-                        ),
-                        Text(
-                          "12/31/2019",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14),
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 16, bottom: 16, right: 16),
-                    height: 140,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        CircleAvatar(
-                          radius: 27,
-                          backgroundColor: Colors.blue[100],
-                        ),
-                        Text(
-                          "Gmail",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
-                        ),
-                        Text(
-                          "12/31/2019",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14),
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 16, bottom: 16, right: 16),
-                    height: 140,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        CircleAvatar(
-                          radius: 27,
-                          backgroundColor: Colors.blue[100],
-                        ),
-                        Text(
-                          "Drible",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
-                        ),
-                        Text(
-                          "12/31/2019",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14),
-                        )
-                      ],
-                    ),
-                  ),
+                  );
+}
+  Widget _buildFolderView() {
+    return Expanded(
+      flex: 6,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                "كوبونات",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
+              Text(" الكل",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueAccent))
+            ],
+          ),
+          Container(
+              height: 140,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                children: <Widget>[
+                  selectedCon(),
+                 containerBox("Drible"),
+                  containerBox("Gmail"),
+                   containerBox("google"),
                 ],
               ))
         ],
@@ -198,7 +138,6 @@ class FindEvent extends StatelessWidget {
             top: 32,
             right:8,
             child: Container(
-
               height: MediaQuery.of(context).size.height / 3.5,
               child: Column(
                 children: <Widget>[
@@ -230,7 +169,7 @@ class FindEvent extends StatelessWidget {
 
                         flex: 8,
                         child: TextField(
-                        decoration: InputDecoration(hintStyle:TextStyle(color: Colors.grey,fontSize: 18,fontWeight: FontWeight.bold),hintText: "ابحث "
+                        decoration: InputDecoration(hintStyle:TextStyle(color: Colors.grey,fontSize: 18,fontWeight: FontWeight.bold),hintText: "ابحث عن كوبون"
                         ,border: InputBorder.none
                         ) , ), ),
                       VerticalDivider(
