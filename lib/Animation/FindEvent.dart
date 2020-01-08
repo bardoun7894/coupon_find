@@ -1,7 +1,8 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:coupon_find/Models/destination_model.dart';
 
-class FindEvent extends StatelessWidget {
+class FindEvent extends StatefulWidget {
  
 
   static Color appColor = Color.fromRGBO(68, 138, 255,30);
@@ -122,6 +123,7 @@ Widget selectedCon(){
       ),
     );
   }
+   Destination destination;
 
   @override
   Widget build(BuildContext context) {
@@ -224,5 +226,11 @@ Widget selectedCon(){
         ],
       )),)
     );
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return null;
   }
 }

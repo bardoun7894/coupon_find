@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:coupon_find/widgets/newFileWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
@@ -10,7 +11,6 @@ class SplashScreen extends StatefulWidget {
 	@override
 	_SplashScreen createState() => new _SplashScreen();
 }
-
 class _SplashScreen extends State<SplashScreen> {
 
 	@override
@@ -22,7 +22,7 @@ class _SplashScreen extends State<SplashScreen> {
 						()=> {
 					Navigator.push(
 						context,
-						MaterialPageRoute(builder: (context) => FindEvent()),
+						MaterialPageRoute(builder: (context) => NewAppModified()),
 					)
 				}
 		);
