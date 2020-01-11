@@ -1,3 +1,6 @@
+import 'package:coupon_find/api/api_repository.dart';
+import 'package:flutter/material.dart';
+
 class FakeCoupons {
   int id;
   String description;
@@ -15,9 +18,8 @@ class Store {
   Store({this.id, this.name, this.image, this.link});
 }
 List<FakeCoupons> fakeList=[_fakeCouponsAnass,_fakeCouponsNoon,_fakeCouponsTajawol];
+
 List<Store> stores=[storeNoon,storeAnass];
-
-
 
 FakeCoupons _fakeCouponsNoon=FakeCoupons(id:0,description:"نون اون لاين 20% لازياء عصرية انيقة ",code:"F93",discount: 20,store: storeNoon);
 FakeCoupons _fakeCouponsTajawol=FakeCoupons(id:2,description:"رقم تجول تواصل معه لخصم 10% علي الفنادق",code:"F159",discount: 10,store: storeTajawol);
@@ -27,7 +29,6 @@ Store storeTajawol=Store(id: 0,name: " تجول",image:"https://www.couponswadi.
 Store storeAnass = Store(id: 1,name: " أناس",image:"https://www.couponswadi.com/wp-content/uploads/2019/12/اناس-اون-لاين.png",link:"https://www.ounass.com/");
 
 List<FakeCoupons> coupons=[
-
 	FakeCoupons(
 			id:0,
 			description: "st mark basilia  ",
@@ -35,6 +36,38 @@ List<FakeCoupons> coupons=[
 			discount:25,
 			store:storeNoon
 	),
-
-
 ];
+
+class MyList extends StatefulWidget {
+
+  @override
+  _MyListState createState() => _MyListState();
+}
+
+class _MyListState extends State<MyList> {
+	APIRepository _apiRepository=APIRepository();
+	@override
+  void initState() {
+   _apiRepository.getDataApi;
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container(color: Colors.white,
+				child:FutureBuilder(
+
+					future: _apiRepository.getDataApi,
+					builder: (BuildContext context,AsyncSnapshot snapshot){
+						if(snapshot.data!=null){
+							return Container(
+									child: ListView.builder(itemBuilder: null));
+						}
+					}
+				)
+
+
+
+
+			);
+  }
+}

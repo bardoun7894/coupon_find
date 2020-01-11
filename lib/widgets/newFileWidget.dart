@@ -1,11 +1,13 @@
 import 'package:clipboard_manager/clipboard_manager.dart';
+import 'package:coupon_find/Models/coupons_model.dart';
+import 'package:coupon_find/Models/fakeCouponsModel.dart';
+import 'package:coupon_find/api/api_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:coupon_find/Models/destination_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:coupon_find/Models/fakeCouponsModel.dart';
 import 'package:url_launcher/url_launcher.dart';
-class NewAppModified extends StatefulWidget {
 
+class NewAppModified extends StatefulWidget {
   @override
   _NewAppModifiedState createState() => _NewAppModifiedState();
 
@@ -13,9 +15,8 @@ class NewAppModified extends StatefulWidget {
   Destination destination;
 }
 
-class _NewAppModifiedState extends State<NewAppModified>{
-
-  List<FakeCoupons> filterList= List();
+class _NewAppModifiedState extends State<NewAppModified> {
+  List<FakeCoupons> filterList = List();
 
 
   final _controller = TextEditingController();
@@ -26,52 +27,59 @@ class _NewAppModifiedState extends State<NewAppModified>{
   initState() {
     super.initState();
     // Add listeners to this class
-    filterList=fakeList;
+    filterList = fakeList;
   }
 
-  Widget containerBox(String sname, int indexSelected,String image) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 4),
-      margin: EdgeInsets.only(top: 10, bottom:10, right: 16),
-      height:80,
-      width:100,
-      decoration: BoxDecoration(
-          color: (selected != null && selected == indexSelected)
-              ? Colors.blue
-              : Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.grey)),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-
-          InkWell(
-            child: Image(
-              image: NetworkImage(  image),
-        width: 60,
-              height: 60,
+  Widget containerBox(String sname, int indexSelected, String image) {
+    return  GestureDetector(
+      onTap: () {
+        setState(() {
+          selected = indexSelected;
+        });},
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 4),
+        margin: EdgeInsets.only(top: 10, bottom: 10, right: 16),
+        height: 80,
+        width: 100,
+        decoration: BoxDecoration(
+            color: (selected != null && selected == indexSelected)
+                ? Colors.blue
+                : Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.grey)),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            InkWell(
+              child: Image(
+                image: NetworkImage(image),
+                width: 60,
+                height: 60,
+              ),
+              onTap: () {
+                setState(() {
+                  selected = indexSelected;
+                  setState(() {
+                    filterList =
+                        fakeList.where((u) => u.store.image == image).toList();
+                  });
+                });
+              },
             ),
-            onTap: () {
-              setState(() {
-                selected = indexSelected;
-
-
-              });
-            },
-          ),
-          Text(
-            sname,
-            style: TextStyle(
-                color: selected == indexSelected ? Colors.white : Colors.grey,
-                fontWeight: FontWeight.bold,
-                fontSize: 16),
-          )
-        ],
+            Text(
+              sname,
+              style: TextStyle(
+                  color: selected == indexSelected ? Colors.white : Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            )
+          ],
+        ),
       ),
     );
   }
 
-  Future<bool> showCoupons(context,String url,String image) {
+  Future<bool> showCoupons(context, String url, String image) {
     return showDialog(
         context: context,
         barrierDismissible: true,
@@ -88,15 +96,18 @@ class _NewAppModifiedState extends State<NewAppModified>{
                 children: <Widget>[
                   Stack(
                     children: <Widget>[
-                      Container(height: 150.0,),
-                      Container(height: 100.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10.0),
-                          topRight:  Radius.circular(10.0),
-
-                        ),color: Colors.blue
-                      ),),
+                      Container(
+                        height: 150.0,
+                      ),
+                      Container(
+                        height: 100.0,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10.0),
+                              topRight: Radius.circular(10.0),
+                            ),
+                            color: Colors.blue),
+                      ),
                       Positioned(
                         top: 50.0,
                         left: 94.0,
@@ -104,70 +115,82 @@ class _NewAppModifiedState extends State<NewAppModified>{
                           height: 90.0,
                           width: 90.0,
                           decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(image),
-                          ),
-                            borderRadius: BorderRadius.circular(45.0)
-                       ,border: Border.all(
-                            color: Colors.white,
-                            style: BorderStyle.solid,width: 2.0
-
-                          )
-
-                          ),
-
-
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(image),
+                              ),
+                              borderRadius: BorderRadius.circular(45.0),
+                              border: Border.all(
+                                  color: Colors.white,
+                                  style: BorderStyle.solid,
+                                  width: 2.0)),
                         ),
                       )
-
                     ],
                   ),
-                  SizedBox(   height: 10.0,  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: Text(
                       "تم نسخ الكود",
-                      style: TextStyle( color: Colors.teal,fontWeight: FontWeight.w600,fontSize: 18.0),
-
-
+                      style: TextStyle(
+                          color: Colors.teal,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18.0),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: Text(
                       "هل تريد تصفح الموقع الان",
-                      style: TextStyle( color: Colors.black,fontWeight: FontWeight.w600,fontSize: 14.0),
-
-
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14.0),
                     ),
                   ),
-                  SizedBox(height:38),
-                  Padding(padding: EdgeInsets.only(right:40),
+                  SizedBox(height: 38),
+                  Padding(
+                    padding: EdgeInsets.only(right: 40),
                     child: Row(
                       children: <Widget>[
-                        FlatButton(onPressed: (){
-                       _launchURL(url);
-                        },
+                        FlatButton(
+                          onPressed: () {
+                            _launchURL(url);
+                          },
                           color: Colors.teal,
-                          child:Center(
-                            child: Text("نعم",style: TextStyle(color: Colors.white,fontSize:20.0,fontWeight: FontWeight.bold),),
-                          ) ,
+                          child: Center(
+                            child: Text(
+                              "نعم",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 20),
-                       child: FlatButton(onPressed: (){
-                         Navigator.of(context).pop();
-                       },
-                          color: Colors.grey,
-                          child:Center(
-                            child: Text("لا",style: TextStyle(color: Colors.white,fontSize:20.0,fontWeight: FontWeight.bold),),
-                          ) ,   )
-          )
+                        Padding(
+                            padding: EdgeInsets.only(right: 20),
+                            child: FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              color: Colors.grey,
+                              child: Center(
+                                child: Text(
+                                  "لا",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ))
                       ],
-                    ) ,
+                    ),
                   ),
-
                 ],
               ),
             ),
@@ -176,7 +199,6 @@ class _NewAppModifiedState extends State<NewAppModified>{
   }
 
   Widget _buildFolderView() {
-
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
@@ -190,24 +212,31 @@ class _NewAppModifiedState extends State<NewAppModified>{
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),
-            Text(" الكل",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blueAccent))
+            FlatButton(
+              child: Text(" الكل",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueAccent)),
+              onPressed: () {
+                setState(() {
+                  filterList =
+                      fakeList.where((u) => u.store.name.contains("")).toList();
+                  selected = null;
+                });
+              },
+            )
           ],
         ),
         Container(
             height: 130,
-
             child: ListView(
-
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               children: <Widget>[
-                for(int i =0;i<filterList.length;i++)
-                containerBox( filterList[i].store.name,i,filterList[i].store.image),
-
+                for (int i = 0; i <fakeList.length; i++)
+                  containerBox(
+                      fakeList[i].store.name, i, fakeList[i].store.image),
               ],
             ))
       ],
@@ -223,100 +252,114 @@ class _NewAppModifiedState extends State<NewAppModified>{
     return Text(stars);
   }
 
+APIRepository _apiRepository=APIRepository();
+
   Widget carouselCoupond() {
     return Expanded(
-      child: ListView.builder(
+
+      child:  ListView.builder(
         itemCount: filterList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Stack(
+        itemBuilder: (BuildContext context, int index)
+              {
+         return getStackData(index);
+               },
+      )
 
-            children: <Widget>[
-
-              Container(
-                margin: EdgeInsets.fromLTRB(10.0, 2, 10.0, 5),
-                width: MediaQuery.of(context).size.width - 20,
-                height: 140,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(right: 110, left: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Flexible(
-                            child: Text( filterList[index].description,
-                              style: TextStyle(
-                                  fontSize: 21.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 15, top: 20),
-                      child: Row(
-                        textDirection: TextDirection.ltr,
-                        children: <Widget>[
-                          Container(
-                              height: 40,
-                              width: 50,
-                              color: Color(0xFF4DA447),
-                              child: Center(
-                                child: Text(filterList[index].code,
-                                  textDirection: TextDirection.ltr,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              )),
-                          Container(
-                              height: 40,
-                              width: 100,
-                              color: Color(0xFF30405D),
-                              child: Center(
-                                  child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    ClipboardManager.copyToClipBoard(filterList[index].code);
-                                    showCoupons(context,filterList[index].store.link,filterList[index].store.image);
-                                  });
-                                },
-                                child: Text(
-                                  "اضغط للنسخ ",
-                                  textDirection: TextDirection.ltr,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ))),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                right: 10,
-                top: 5.0,
-                child: ClipRRect(
-                  child: Image(
-                      width: 80,
-                      height: 80,
-                      image: NetworkImage(filterList[index].store.image)),
-                ),
-              )
-            ],
-          );
-        },
-      ),
     );
   }
+
+Widget  getStackData(index){
+
+  return Stack(
+    children: <Widget>[
+      Container(
+        margin: EdgeInsets.fromLTRB(10.0, 2, 10.0, 5),
+        width: MediaQuery.of(context).size.width - 20,
+        height: 140,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(right: 110, left: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      filterList[index].description,
+                      style: TextStyle(
+                          fontSize: 21.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 15, top: 20),
+              child: Row(
+                textDirection: TextDirection.ltr,
+                children: <Widget>[
+                  Container(
+                      height: 40,
+                      width: 50,
+                      color: Color(0xFF4DA447),
+                      child: Center(
+                        child: Text(
+                          filterList[index].code,
+                          textDirection: TextDirection.ltr,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )),
+                  Container(
+                      height: 40,
+                      width: 100,
+                      color: Color(0xFF30405D),
+                      child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                ClipboardManager.copyToClipBoard(
+                                    filterList[index].code);
+                                showCoupons(
+                                    context,
+                                    filterList[index].store.link,
+                                    filterList[index].store.image);
+                              });
+                            },
+                            child: Text(
+                              "اضغط للنسخ ",
+                              textDirection: TextDirection.ltr,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ))),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      Positioned(
+        right: 10,
+        top: 5.0,
+        child: ClipRRect(
+          child: Image(
+              width: 80,
+              height: 80,
+              image: NetworkImage(filterList[index].store.image)),
+        ),
+      )
+    ],
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -326,7 +369,7 @@ class _NewAppModifiedState extends State<NewAppModified>{
           child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              child: Stack(
+              child:   Stack(
                 children: <Widget>[
                   Positioned(
                     left: 10,
@@ -373,8 +416,7 @@ class _NewAppModifiedState extends State<NewAppModified>{
                                 Expanded(
                                   flex: 8,
                                   child: TextField(
-                                    controller:_controller ,
-
+                                    controller: _controller,
                                     decoration: InputDecoration(
                                         hintStyle: TextStyle(
                                             color: Colors.grey,
@@ -394,13 +436,12 @@ class _NewAppModifiedState extends State<NewAppModified>{
                                     icon: Icon(Icons.search),
                                     color: Colors.grey,
                                     onPressed: () {
-
-setState(() {
-  filterList=fakeList.where((u)=>   u.store.name.contains(_controller.text)  ).toList();
-});
-
-
-
+                                      setState(() {
+                                        filterList = fakeList
+                                            .where((u) => u.store.name
+                                            .contains(_controller.text))
+                                            .toList();
+                                      });
                                     },
                                     iconSize: 30,
                                   ),
@@ -424,8 +465,8 @@ setState(() {
                                 topLeft: Radius.circular(24),
                                 topRight: Radius.circular(24))),
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 5, right: 5, top:5),
+                          padding:
+                          const EdgeInsets.only(left: 5, right: 5, top: 5),
                           child: Column(
                             children: <Widget>[
                               _buildFolderView(),
@@ -434,13 +475,17 @@ setState(() {
                           ),
                         )),
                   )
+
                 ],
-              )),
+              )
+          ),
+
         ));
   }
 }
-_launchURL(String url) async {
 
+
+_launchURL(String url) async {
   if (await canLaunch(url)) {
     await launch(url);
   } else {

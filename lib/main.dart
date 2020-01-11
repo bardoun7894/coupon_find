@@ -1,7 +1,7 @@
  
   
 import 'package:coupon_find/Animation/mo.dart';
-import 'package:coupon_find/home.dart';
+import 'package:coupon_find/Models/fakeCouponsModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

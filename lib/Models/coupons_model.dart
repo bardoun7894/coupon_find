@@ -1,18 +1,38 @@
-class coupons {
+class CouponModel {
 	int id;
 	String description;
 	String code;
-	int discount;
-	Store store;
+	String discount;
+	Null storeId;
+	String storeName;
+	String storeImage;
+	String storeLink;
+	String createdAt;
+	String updatedAt;
 
-	coupons({this.id, this.description, this.code, this.discount, this.store});
+	CouponModel(
+			{this.id,
+				this.description,
+				this.code,
+				this.discount,
+				this.storeId,
+				this.storeName,
+				this.storeImage,
+				this.storeLink,
+				this.createdAt,
+				this.updatedAt});
 
-	coupons.fromJson(Map<String, dynamic> json) {
+	CouponModel.fromJson(Map<String, dynamic> json) {
 		id = json['id'];
 		description = json['description'];
 		code = json['code'];
 		discount = json['discount'];
-		store = json['store'] != null ? new Store.fromJson(json['store']) : null;
+		storeId = json['storeId'];
+		storeName = json['storeName'];
+		storeImage = json['storeImage'];
+		storeLink = json['storeLink'];
+		createdAt = json['created_at'];
+		updatedAt = json['updated_at'];
 	}
 
 	Map<String, dynamic> toJson() {
@@ -21,34 +41,12 @@ class coupons {
 		data['description'] = this.description;
 		data['code'] = this.code;
 		data['discount'] = this.discount;
-		if (this.store != null) {
-			data['store'] = this.store.toJson();
-		}
-		return data;
-	}
-}
-
-class Store {
-	int id;
-	String name;
-	String image;
-	String link;
-
-	Store({this.id, this.name, this.image, this.link});
-
-	Store.fromJson(Map<String, dynamic> json) {
-		id = json['id'];
-		name = json['name'];
-		image = json['image'];
-		link = json['link'];
-	}
-
-	Map<String, dynamic> toJson() {
-		final Map<String, dynamic> data = new Map<String, dynamic>();
-		data['id'] = this.id;
-		data['name'] = this.name;
-		data['image'] = this.image;
-		data['link'] = this.link;
+		data['storeId'] = this.storeId;
+		data['storeName'] = this.storeName;
+		data['storeImage'] = this.storeImage;
+		data['storeLink'] = this.storeLink;
+		data['created_at'] = this.createdAt;
+		data['updated_at'] = this.updatedAt;
 		return data;
 	}
 }
