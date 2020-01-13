@@ -28,15 +28,7 @@ Store storeNoon =  Store(id: 0,name: "نون",image:"https://www.couponswadi.com
 Store storeTajawol=Store(id: 0,name: " تجول",image:"https://www.couponswadi.com/wp-content/uploads/2019/02/tgawol-code-150x150.png",link:"https://www.noon.com/egypt-ar/");
 Store storeAnass = Store(id: 1,name: " أناس",image:"https://www.couponswadi.com/wp-content/uploads/2019/12/اناس-اون-لاين.png",link:"https://www.ounass.com/");
 
-List<FakeCoupons> coupons=[
-	FakeCoupons(
-			id:0,
-			description: "st mark basilia  ",
-			code: "SIghtsseeing tour ",
-			discount:25,
-			store:storeNoon
-	),
-];
+
 
 class MyList extends StatefulWidget {
 

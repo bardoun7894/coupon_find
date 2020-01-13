@@ -27,6 +27,6 @@ class MyApp extends StatelessWidget {
       locale: Locale("ar") // OR Locale('ar', 'AE') OR Other RTL locales,
  
       , debugShowCheckedModeBanner: false,
-      home: SplashScreen() ,  );
+      home: SplashScreen());
   }
 }

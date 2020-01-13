@@ -3,7 +3,6 @@ import 'package:coupon_find/Models/coupons_model.dart';
 import 'package:coupon_find/Models/fakeCouponsModel.dart';
 import 'package:coupon_find/api/api_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:coupon_find/Models/destination_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -11,8 +10,6 @@ class NewAppModified extends StatefulWidget {
   @override
   _NewAppModifiedState createState() => _NewAppModifiedState();
 
-  NewAppModified({this.destination});
-  Destination destination;
 }
 
 class _NewAppModifiedState extends State<NewAppModified> {

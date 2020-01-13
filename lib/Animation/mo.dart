@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 
-import 'FindEvent.dart';
-
+import '../appContainer.dart';
 class SplashScreen extends StatefulWidget {
 	@override
 	_SplashScreen createState() => new _SplashScreen();
@@ -22,7 +21,7 @@ class _SplashScreen extends State<SplashScreen> {
 						()=> {
 					Navigator.push(
 						context,
-						MaterialPageRoute(builder: (context) => NewAppModified()),
+						MaterialPageRoute(builder: (context) => NewApp()),
 					)
 				}
 		);
